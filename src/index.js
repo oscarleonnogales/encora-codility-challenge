@@ -1,17 +1,27 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+
+import { combineReducers, createStore } from 'redux';
+import { Provider } from 'react-redux';
+
+import Basket from './components/Basket';
+import basketReducer from './redux/reducer';
+
+import AddProductComponent from './components/AddProductComponent';
+import RemoveProductComponent from './components/RemoveProductComponent';
+
+const rootReducer = combineReducers({
+	basket: basketReducer,
+});
+const store = createStore(rootReducer);
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+	<Provider store={store}>
+		<Basket />
+		<div id="utils">
+			<AddProductComponent />
+			<RemoveProductComponent />
+		</div>
+	</Provider>,
+	document.getElementById('root')
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
